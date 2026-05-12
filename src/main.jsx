@@ -1,15 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router'
-import './index.css'
-import App from './App.jsx'
-import FrontPage from './pages/Frontpage/FrontPage.jsx'
-import Features from './pages/Features/Features.jsx'
-import LoginPage from './pages/LoginPage/LoginPage.jsx'
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx'
-import UsersPage from './pages/UsersPage/UsersPage.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router";
+import "./index.css";
+import App from "./App.jsx";
+import FrontPage from "./pages/Frontpage/FrontPage.jsx";
+import Features from "./pages/Features/Features.jsx";
+import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import UsersPage from "./pages/UsersPage/UsersPage.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
@@ -25,9 +25,8 @@ createRoot(document.getElementById('root')).render(
               </ProtectedRoute>
             }
           />
-
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
-)
+  </StrictMode> 
+);

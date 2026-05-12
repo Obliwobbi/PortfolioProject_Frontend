@@ -58,6 +58,10 @@
   cursor: pointer;
 }
 
+.login-card button:hover {
+  background: #7c3aed;
+}
+
 .login-error {
   margin-bottom: 20px;
   padding: 12px;
