@@ -59,7 +59,7 @@
 }
 
 .login-card button:hover {
-  background: #7c3aed;
+  background: linear-gradient(135deg, #8141ee, #ac5df7);
 }
 
 .login-error {

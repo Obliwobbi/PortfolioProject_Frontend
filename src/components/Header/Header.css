@@ -21,6 +21,7 @@
 
 .top-menu__logo-icon {
   color: #a855f7;
+  text-decoration: none;
   font-size: 32px;
   font-weight: 900;
 }
@@ -55,4 +56,19 @@
 
 .top-menu__link--active {
   color: #c084fc;
+}
+
+.top-menu__login-button {
+  width: 10%;
+  padding: 14px;
+  border: none;
+  text-decoration: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white;
+  cursor: pointer;
+}
+
+.top-menu__login-button:hover {
+  background: linear-gradient(135deg, #8141ee, #ac5df7)
 }

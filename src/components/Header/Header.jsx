@@ -8,6 +8,7 @@ const menuItems = [
   { label: "Home", to: "/" },
   { label: "Features", to: "/features" },
   { label: "How it works", to: "/how-it-works" },
+  { label: "Users", to: "/users" }
 ];
 
 function Header() {

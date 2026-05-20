@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:7070'
+// const API_BASE_URL = 'http://localhost:7070'
+const API_BASE_URL = 'https://membersystem.obli.dk/api/v1'
 
 async function handleResponse(response) {
   if (!response.ok) {
