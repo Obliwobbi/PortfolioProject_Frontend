@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './UsersPage.css'
+import { apiGet } from '../../api/apiClient'
 
 function UsersPage() {
   const [users, setUsers] = useState([])
@@ -9,19 +10,7 @@ function UsersPage() {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const token = localStorage.getItem('token')
-
-        const response = await fetch('https://membersystem.obli.dk/api/v1/users', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-
-        if (!response.ok) {
-          throw new Error('Could not fetch users')
-        }
-
-        const data = await response.json()
+        const data = await apiGet('/users')
         setUsers(data)
       } catch (error) {
         setErrorMessage(error.message)
@@ -33,13 +22,8 @@ function UsersPage() {
     fetchUsers()
   }, [])
 
-  if (isLoading) {
-    return <p className="users-status">Loading users...</p>
-  }
-
-  if (errorMessage) {
-    return <p className="users-error">{errorMessage}</p>
-  }
+  if (isLoading) return <p className="users-status">Loading users...</p>
+  if (errorMessage) return <p className="users-error">{errorMessage}</p>
 
   return (
     <section className="users-page">
@@ -61,9 +45,7 @@ function UsersPage() {
             </div>
 
             <div>
-              <h2>
-                {user.firstname} {user.lastname}
-              </h2>
+              <h2>{user.firstname} {user.lastname}</h2>
               <p>{user.email}</p>
               <span>{user.role}</span>
             </div>

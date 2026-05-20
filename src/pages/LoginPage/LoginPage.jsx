@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { apiPost } from '../../api/apiClient'
+
 import './LoginPage.css'
 
 function LoginPage() {
@@ -8,33 +10,28 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
 
     setErrorMessage('')
+    setIsLoading(true)
 
-    const response = await fetch('https://membersystem.obli.dk/api/v1/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    try {
+      const data = await apiPost('/login', {
         email,
         password,
-      }),
-    })
+      }, false)
 
-    if (!response.ok) {
-      setErrorMessage('Invalid email or password')
-      return
+      localStorage.setItem('token', data.token)
+
+      navigate('/users')
+    } catch (error) {
+      setErrorMessage(error.message || 'Invalid email or password')
+    } finally {
+      setIsLoading(false)
     }
-
-    const data = await response.json()
-
-    localStorage.setItem('token', data.token)
-
-    navigate('/users')
   }
 
   return (
@@ -67,7 +64,9 @@ function LoginPage() {
           />
         </label>
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </section>
   )
