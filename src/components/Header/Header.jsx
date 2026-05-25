@@ -1,46 +1,46 @@
-import { NavLink, useNavigate, useLocation } from "react-router"
-import { useEffect, useState } from "react"
-import { apiGet } from "../../api/apiClient"
-import UserMenu from "../UserMenu/UserMenu"
-import "./Header.css"
+import { NavLink, useNavigate, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { apiGet } from "../../api/apiClient";
+import UserMenu from "../UserMenu/UserMenu";
+import "./Header.css";
 
 const menuItems = [
   { label: "Home", to: "/" },
   { label: "Features", to: "/features" },
   { label: "How it works", to: "/how-it-works" },
-  { label: "Users", to: "/users" }
+  { label: "Users", to: "/users" },
 ];
 
 function Header() {
-  const [user, setUser] = useState(null)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   function handleLogout() {
-    localStorage.removeItem("token")
-    setUser(null)
-    navigate("/login")
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
   }
 
   useEffect(() => {
     async function fetchCurrentUser() {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
 
       if (!token) {
-        setUser(null)
-        return
+        setUser(null);
+        return;
       }
 
       try {
-        const data = await apiGet("/me")
-        setUser(data)
+        const data = await apiGet("/me");
+        setUser(data);
       } catch {
-        setUser(null)
+        setUser(null);
       }
     }
 
-    fetchCurrentUser()
-  }, [location.pathname])
+    fetchCurrentUser();
+  }, [location.pathname]);
 
   return (
     <header className="top-menu">
@@ -67,15 +67,17 @@ function Header() {
           ))}
         </ul>
       </nav>
-      {user ? (
-        <UserMenu user={user} onLogout={handleLogout} />
-      ) : (
-        <NavLink className="top-menu__login-button" to="/login">
-          Login
-        </NavLink>
-      )}
+      <div className="top-menu__auth">
+        {user ? (
+          <UserMenu user={user} onLogout={handleLogout} />
+        ) : (
+          <NavLink className="top-menu__login-button" to="/login">
+            Login
+          </NavLink>
+        )}
+      </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
