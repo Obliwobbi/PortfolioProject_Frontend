@@ -67,6 +67,7 @@
 .top-menu__login-button {
   width: 10%;
   padding: 14px;
+  margin-right: 64px;
   border: none;
   text-decoration: none;
   border-radius: 10px;
