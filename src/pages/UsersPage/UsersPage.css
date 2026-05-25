@@ -7,15 +7,16 @@
 
 .users-page__header {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 32px;
   margin-bottom: 32px;
 }
 
 .users-page__eyebrow {
   margin: 0 0 8px;
   color: #a855f7;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -25,70 +26,77 @@
   font-size: 44px;
 }
 
-.users-page__count {
+.users-page__description {
+  margin: 12px 0 0;
   color: #a1a1aa;
+  max-width: 600px;
+  line-height: 1.6;
 }
 
-.users-grid {
+.users-page__summary {
+  min-width: 140px;
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: #111827;
+  border: 1px solid #27272a;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.users-page__summary strong {
+  font-size: 28px;
+}
+
+.users-page__summary span {
+  color: #a1a1aa;
+  font-size: 14px;
+}
+
+.users-toolbar {
+  display: grid;
+  grid-template-columns: 1fr 220px 260px;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.users-toolbar input,
+.users-toolbar select {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #27272a;
+  background: #111827;
+  color: white;
+  font-size: 14px;
+}
+
+.users-toolbar input:focus,
+.users-toolbar select:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+
+.users-list {
   display: grid;
   gap: 20px;
 }
 
-.user-card {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 20px;
-
-  padding: 24px;
+.users-empty {
+  padding: 56px;
   border-radius: 18px;
   background: #111827;
   border: 1px solid #27272a;
+  text-align: center;
 }
 
-.user-card__avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 800;
-  font-size: 18px;
+.users-empty h2 {
+  margin: 0 0 8px;
 }
 
-.user-card h2 {
-  margin: 0 0 6px;
-}
-
-.user-card p {
-  margin: 0 0 10px;
+.users-empty p {
+  margin: 0;
   color: #a1a1aa;
-}
-
-.user-card span {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: rgba(168, 85, 247, 0.16);
-  color: #d8b4fe;
-  font-size: 12px;
-}
-
-.user-card__company {
-  text-align: right;
-}
-
-.user-card__company p {
-  margin-bottom: 4px;
-  font-size: 12px;
-}
-
-.user-card__company strong {
-  color: #f5f3ff;
 }
 
 .users-status,
@@ -99,4 +107,23 @@
 
 .users-error {
   color: #fca5a5;
+}
+
+@media (max-width: 900px) {
+  .users-page {
+    padding: 32px;
+  }
+
+  .users-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .users-page__summary {
+    align-items: flex-start;
+  }
+
+  .users-toolbar {
+    grid-template-columns: 1fr;
+  }
 }

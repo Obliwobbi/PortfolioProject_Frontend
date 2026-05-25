@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
-import './UsersPage.css'
+import { useEffect, useMemo, useState } from 'react'
 import { apiGet } from '../../api/apiClient'
+import UserCard from '../../components/UserCard/UserCard'
+import './UsersPage.css'
 
 function UsersPage() {
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedRole, setSelectedRole] = useState('ALL')
+  const [selectedCompany, setSelectedCompany] = useState('ALL')
 
   useEffect(() => {
     async function fetchUsers() {
@@ -22,41 +27,102 @@ function UsersPage() {
     fetchUsers()
   }, [])
 
-  if (isLoading) return <p className="users-status">Loading users...</p>
-  if (errorMessage) return <p className="users-error">{errorMessage}</p>
+  const companies = useMemo(() => {
+    const uniqueCompanies = new Map()
+
+    users.forEach((user) => {
+      if (user.companyId && user.companyName) {
+        uniqueCompanies.set(user.companyId, user.companyName)
+      }
+    })
+
+    return Array.from(uniqueCompanies, ([id, name]) => ({ id, name }))
+  }, [users])
+
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      const searchText = `${user.firstname} ${user.lastname} ${user.email} ${user.companyName}`.toLowerCase()
+
+      const matchesSearch = searchText.includes(searchTerm.toLowerCase())
+
+      const matchesRole =
+        selectedRole === 'ALL' || user.role === selectedRole
+
+      const matchesCompany =
+        selectedCompany === 'ALL' || String(user.companyId) === selectedCompany
+
+      return matchesSearch && matchesRole && matchesCompany
+    })
+  }, [users, searchTerm, selectedRole, selectedCompany])
+
+  if (isLoading) {
+    return <p className="users-status">Loading users...</p>
+  }
+
+  if (errorMessage) {
+    return <p className="users-error">{errorMessage}</p>
+  }
 
   return (
     <section className="users-page">
       <div className="users-page__header">
         <div>
-          <p className="users-page__eyebrow">Protected page</p>
+          <p className="users-page__eyebrow">User management</p>
           <h1>Users</h1>
+          <p className="users-page__description">
+            Search, filter and manage users connected to your access level.
+          </p>
         </div>
 
-        <p className="users-page__count">{users.length} users</p>
+        <div className="users-page__summary">
+          <strong>{filteredUsers.length}</strong>
+          <span>shown of {users.length}</span>
+        </div>
       </div>
 
-      <div className="users-grid">
-        {users.map((user) => (
-          <article className="user-card" key={user.id}>
-            <div className="user-card__avatar">
-              {user.firstname?.charAt(0)}
-              {user.lastname?.charAt(0)}
-            </div>
+      <div className="users-toolbar">
+        <input
+          type="search"
+          placeholder="Search by name, email or company..."
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
 
-            <div>
-              <h2>{user.firstname} {user.lastname}</h2>
-              <p>{user.email}</p>
-              <span>{user.role}</span>
-            </div>
+        <select
+          value={selectedRole}
+          onChange={(event) => setSelectedRole(event.target.value)}
+        >
+          <option value="ALL">All roles</option>
+          <option value="SYSTEM_ADMIN">System admin</option>
+          <option value="COMPANY_ADMIN">Company admin</option>
+          <option value="MEMBER">Member</option>
+        </select>
 
-            <div className="user-card__company">
-              <p>Company</p>
-              <strong>{user.companyName}</strong>
-            </div>
-          </article>
-        ))}
+        <select
+          value={selectedCompany}
+          onChange={(event) => setSelectedCompany(event.target.value)}
+        >
+          <option value="ALL">All companies</option>
+          {companies.map((company) => (
+            <option key={company.id} value={company.id}>
+              {company.name}
+            </option>
+          ))}
+        </select>
       </div>
+
+      {filteredUsers.length === 0 ? (
+        <div className="users-empty">
+          <h2>No users found</h2>
+          <p>Try changing your search or filters.</p>
+        </div>
+      ) : (
+        <div className="users-list">
+          {filteredUsers.map((user) => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

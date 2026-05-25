@@ -1,0 +1,22 @@
+.role-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.role-badge--system_admin {
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+}
+
+.role-badge--company_admin {
+  background: rgba(59, 130, 246, 0.18);
+  color: #bfdbfe;
+}
+
+.role-badge--member {
+  background: rgba(34, 197, 94, 0.16);
+  color: #bbf7d0;
+}
