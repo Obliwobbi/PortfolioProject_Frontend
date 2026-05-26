@@ -1,4 +1,4 @@
-// const API_BASE_URL = 'http://localhost:7070'
+// const API_BASE_URL = 'http://localhost:7070/api/v1'
 const API_BASE_URL = 'https://membersystem.obli.dk/api/v1'
 
 async function handleResponse(response) {
@@ -36,9 +36,9 @@ function getHeaders(includeAuth = true) {
   return headers
 }
 
-export async function apiGet(endpoint) {
+export async function apiGet(endpoint, includeAuth = true) {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    headers: getHeaders(true),
+    headers: getHeaders(includeAuth),
   })
 
   return await handleResponse(response)

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import { apiPost } from '../../api/apiClient'
 
 import './LoginPage.css'
@@ -67,6 +67,10 @@ function LoginPage() {
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
+        <div className="login-card__footer">
+          <span>Don't have an account?</span>
+          <NavLink to="/register">Create account</NavLink>
+        </div>
       </form>
     </section>
   )

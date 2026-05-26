@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import FrontPage from "./pages/Frontpage/FrontPage.jsx";
 import Features from "./pages/Features/Features.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import UsersPage from "./pages/UsersPage/UsersPage.jsx";
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
           <Route index element={<FrontPage />} />
           <Route path="features" element={<Features />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route
             path="users"
             element={

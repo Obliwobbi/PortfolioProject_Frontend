@@ -1,90 +1,127 @@
-.login-page {
+.register-page {
   min-height: calc(100vh - 80px);
+  padding: 48px 24px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: radial-gradient(circle at top, #2d145f, #080b14 55%);
+  color: white;
 }
 
-.login-card {
+.register-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 620px;
+
   padding: 40px;
-  background-color: #111827;
+  border-radius: 22px;
+
+  background: #111827;
   border: 1px solid #2f3548;
-  border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
-.login-card h1 {
-  margin-bottom: 8px;
+.register-card__header {
+  margin-bottom: 28px;
+}
+
+.register-card h1 {
+  margin: 0 0 8px;
   font-size: 36px;
 }
 
-.login-card p {
-  margin-bottom: 28px;
+.register-card p {
+  margin: 0;
   color: #a1a1aa;
 }
 
-.login-card label {
+.register-card label {
   display: flex;
   flex-direction: column;
   gap: 8px;
+
   margin-bottom: 20px;
   color: #e5e7eb;
+  font-weight: 600;
 }
 
-.login-card input {
+.register-card input,
+.register-card select {
   padding: 14px 16px;
+
   border-radius: 10px;
   border: 1px solid #374151;
+
   background-color: #080b14;
   color: white;
 }
 
-.login-card input:focus {
+.register-card input:focus,
+.register-card select:focus {
   outline: none;
   border-color: #a855f7;
 }
 
-.login-card button {
+.register-card__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.register-card button {
   width: 100%;
   padding: 14px;
+
   border: none;
   border-radius: 10px;
+
   background: linear-gradient(135deg, #7c3aed, #a855f7);
   color: white;
-  font-weight: 700;
+
+  font-weight: 800;
   cursor: pointer;
 }
 
-.login-card button:hover {
-  background: linear-gradient(135deg, #8141ee, #ac5df7);
+.register-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.login-card__footer {
+.register-error {
+  margin-bottom: 20px;
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+.register-card__footer {
   margin-top: 22px;
+
   display: flex;
   justify-content: center;
   gap: 8px;
+
   color: #a1a1aa;
   font-size: 14px;
 }
 
-.login-card__footer a {
+.register-card__footer a {
   color: #c084fc;
   text-decoration: none;
   font-weight: 700;
 }
 
-.login-card__footer a:hover {
+.register-card__footer a:hover {
   color: #d8b4fe;
 }
 
-.login-error {
-  margin-bottom: 20px;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #fca5a5;
+@media (max-width: 650px) {
+  .register-card__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
