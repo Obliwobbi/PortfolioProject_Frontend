@@ -3,12 +3,16 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
+
 import FrontPage from "./pages/Frontpage/FrontPage.jsx";
 import Features from "./pages/Features/Features.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
+
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import UsersPage from "./pages/UsersPage/UsersPage.jsx";
+import UserDetailsPage from "./pages/UserDetailsPage/UserDetailsPage.jsx";
+import CompaniesPage from "./pages/CompaniesPage/CompaniesPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -27,8 +31,18 @@ createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
+          <Route path="companies" element={
+            <ProtectedRoute>
+              <CompaniesPage />
+            </ProtectedRoute>
+          } />
+          <Route path="users/:id" element={
+            <ProtectedRoute>
+              <UserDetailsPage />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode> 
+  </StrictMode>,
 );

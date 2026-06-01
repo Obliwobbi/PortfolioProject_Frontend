@@ -1,17 +1,23 @@
-import RoleBadge from "../RoleBadge/RoleBadge";
-import "./UserCard.css";
+import { useNavigate } from 'react-router'
+import RoleBadge from '../RoleBadge/RoleBadge'
+import './UserCard.css'
 
 function UserCard({ user }) {
-  const initials = `${user.firstname?.charAt(0) ?? ""}${user.lastname?.charAt(0) ?? ""}`;
+  const navigate = useNavigate()
+  const initials = `${user.firstname?.charAt(0) ?? ''}${user.lastname?.charAt(0) ?? ''}`
+
+  function handleDetailsClick() {
+    navigate(`/users/${user.id}`)
+  }
 
   return (
     <article className="user-card">
-      <div className="user-card__avatar">{initials}</div>
+      <div className="user-card__avatar">
+        {initials}
+      </div>
 
       <div className="user-card__main">
-        <h2>
-          {user.firstname} {user.lastname}
-        </h2>
+        <h2>{user.firstname} {user.lastname}</h2>
         <p>{user.email}</p>
         <RoleBadge role={user.role} />
       </div>
@@ -22,11 +28,12 @@ function UserCard({ user }) {
       </div>
 
       <div className="user-card__actions">
-        <button>Edit</button>
-        <button className="danger">Delete</button>
+        <button type="button" onClick={handleDetailsClick}>
+          Details
+        </button>
       </div>
     </article>
-  );
+  )
 }
 
-export default UserCard;
+export default UserCard

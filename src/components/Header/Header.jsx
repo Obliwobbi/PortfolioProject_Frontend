@@ -1,46 +1,75 @@
-import { NavLink, useNavigate, useLocation } from "react-router";
-import { useEffect, useState } from "react";
-import { apiGet } from "../../api/apiClient";
-import UserMenu from "../UserMenu/UserMenu";
-import "./Header.css";
+import { NavLink, useNavigate, useLocation } from "react-router"
+import { useEffect, useState } from "react"
+import { apiGet } from "../../api/apiClient"
+import UserMenu from "../UserMenu/UserMenu"
+import "./Header.css"
 
-const menuItems = [
-  { label: "Home", to: "/" },
-  { label: "Features", to: "/features" },
-  { label: "How it works", to: "/how-it-works" },
-  { label: "Users", to: "/users" },
-];
+function getMenuItems(user) {
+  if (!user) {
+    return [
+      { label: "Home", to: "/" },
+      { label: "Features", to: "/features" },
+      { label: "How it works", to: "/how-it-works" },
+    ]
+  }
+
+  if (user.role === "SYSTEM_ADMIN") {
+    return [
+      { label: "Users", to: "/users" },
+      { label: "Companies", to: "/companies" },
+    ]
+  }
+
+  if (user.role === "COMPANY_ADMIN") {
+    return [
+      { label: "My Users", to: "/users" },
+      { label: "My Company", to: "/companies" },
+    ]
+  }
+
+  if (user.role === "MEMBER") {
+    return [
+      { label: "My Profile", to: `/users/${user.id}` },
+      { label: "My Company", to: "/companies" },
+    ]
+  }
+
+  return []
+}
 
 function Header() {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const menuItems = getMenuItems(user)
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/login");
+    localStorage.removeItem("token")
+    setUser(null)
+    navigate("/login")
   }
 
   useEffect(() => {
     async function fetchCurrentUser() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token")
 
       if (!token) {
-        setUser(null);
-        return;
+        setUser(null)
+        return
       }
 
       try {
-        const data = await apiGet("/me");
-        setUser(data);
+        const data = await apiGet("/me")
+        setUser(data)
       } catch {
-        setUser(null);
+        localStorage.removeItem("token")
+        setUser(null)
       }
     }
 
-    fetchCurrentUser();
-  }, [location.pathname]);
+    fetchCurrentUser()
+  }, [location.pathname])
 
   return (
     <header className="top-menu">
@@ -67,6 +96,7 @@ function Header() {
           ))}
         </ul>
       </nav>
+
       <div className="top-menu__auth">
         {user ? (
           <UserMenu user={user} onLogout={handleLogout} />
@@ -77,7 +107,7 @@ function Header() {
         )}
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

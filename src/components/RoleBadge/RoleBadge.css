@@ -1,22 +1,30 @@
 .role-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 6px 12px;
   border-radius: 999px;
+
   font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .role-badge--system_admin {
   background: rgba(168, 85, 247, 0.18);
   color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.35);
 }
 
 .role-badge--company_admin {
   background: rgba(59, 130, 246, 0.18);
   color: #bfdbfe;
+  border: 1px solid rgba(59, 130, 246, 0.35);
 }
 
 .role-badge--member {
   background: rgba(34, 197, 94, 0.16);
   color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.30);
 }

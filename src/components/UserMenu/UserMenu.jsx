@@ -1,29 +1,30 @@
-import './UserMenu.css'
+import "./UserMenu.css";
 
-function UserMenu ({ user, onLogout}) {
-    const initials = `${user.firstname?.charAt(0)}${user.lastname?.charAt(0)}`
+function UserMenu({ user, onLogout }) {
+  const initials = `${user.firstname?.charAt(0)}${user.lastname?.charAt(0)}`;
 
-    return (
-        <div className="user-menu">
-            <div className="user-menu__avatar">
-                {initials}
-            </div>
+  function formatRole(role) {
+    if (role === "SYSTEM_ADMIN") return "System admin";
+    if (role === "COMPANY_ADMIN") return "Company admin";
+    if (role === "MEMBER") return "Member";
+    return role;
+  }
 
-            <div className="user-menu__info">
-                <strong>
-                    {user.firstname} {user.lastname}
-                </strong>
+  return (
+    <div className="user-menu">
+      <div className="user-menu__avatar">{initials}</div>
 
-                <span>
-                    {user.role}
-                </span>
-            </div>
+      <div className="user-menu__info">
+        <strong>
+          {user.firstname} {user.lastname}
+        </strong>
 
-            <button onClick={onLogout}>
-                Logout
-            </button>
-        </div>
-    )
+        <span>{formatRole(user.role)}</span>
+      </div>
+
+      <button onClick={onLogout}>Logout</button>
+    </div>
+  );
 }
 
 export default UserMenu;

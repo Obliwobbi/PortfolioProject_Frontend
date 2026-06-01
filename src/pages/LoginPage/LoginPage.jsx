@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router'
-import { apiPost } from '../../api/apiClient'
+import { apiPost, apiGet } from '../../api/apiClient'
 
 import './LoginPage.css'
 
@@ -25,8 +25,13 @@ function LoginPage() {
       }, false)
 
       localStorage.setItem('token', data.token)
+      const currentUser = await apiGet('/me')
 
-      navigate('/users')
+      if (currentUser.role === 'MEMBER') {
+      navigate(`/users/${currentUser.id}`)
+      } else {
+        navigate('/users')
+      }
     } catch (error) {
       setErrorMessage(error.message || 'Invalid email or password')
     } finally {
