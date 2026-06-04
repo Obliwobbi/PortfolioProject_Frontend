@@ -81,3 +81,26 @@
     text-align: left;
   }
 }
+
+@media (max-width: 650px) {
+  .user-card {
+    grid-template-columns: 1fr;
+  }
+
+  .user-card__avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .user-card__meta {
+    text-align: left;
+  }
+
+  .user-card__actions {
+    width: 100%;
+  }
+
+  .user-card__actions button {
+    width: 100%;
+  }
+}

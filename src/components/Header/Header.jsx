@@ -39,6 +39,8 @@ function getMenuItems(user) {
 
 function Header() {
   const [user, setUser] = useState(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -47,7 +49,12 @@ function Header() {
   function handleLogout() {
     localStorage.removeItem("token")
     setUser(null)
+    setIsMenuOpen(false)
     navigate("/login")
+  }
+
+  function closeMenu() {
+    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -69,42 +76,58 @@ function Header() {
     }
 
     fetchCurrentUser()
+    setIsMenuOpen(false)
   }, [location.pathname])
 
   return (
     <header className="top-menu">
       <div className="top-menu__logo">
-        <NavLink className="top-menu__logo-icon" to="/">
+        <NavLink className="top-menu__logo-icon" to="/" onClick={closeMenu}>
           M
         </NavLink>
         <span>MemberSystem</span>
       </div>
 
-      <nav className="top-menu__nav">
-        <ul className="top-menu__list">
-          {menuItems.map((item) => (
-            <li className="top-menu__item" key={item.to}>
-              <NavLink
-                to={item.to}
-                className={({ isActive }) =>
-                  `top-menu__link${isActive ? " top-menu__link--active" : ""}`
-                }
-              >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <button
+        className={`top-menu__burger${isMenuOpen ? " top-menu__burger--open" : ""}`}
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded={isMenuOpen}
+        onClick={() => setIsMenuOpen((current) => !current)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-      <div className="top-menu__auth">
-        {user ? (
-          <UserMenu user={user} onLogout={handleLogout} />
-        ) : (
-          <NavLink className="top-menu__login-button" to="/login">
-            Login
-          </NavLink>
-        )}
+      <div className={`top-menu__mobile-panel${isMenuOpen ? " top-menu__mobile-panel--open" : ""}`}>
+        <nav className="top-menu__nav">
+          <ul className="top-menu__list">
+            {menuItems.map((item) => (
+              <li className="top-menu__item" key={item.to}>
+                <NavLink
+                  to={item.to}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `top-menu__link${isActive ? " top-menu__link--active" : ""}`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="top-menu__auth">
+          {user ? (
+            <UserMenu user={user} onLogout={handleLogout} />
+          ) : (
+            <NavLink className="top-menu__login-button" to="/login" onClick={closeMenu}>
+              Login
+            </NavLink>
+          )}
+        </div>
       </div>
     </header>
   )

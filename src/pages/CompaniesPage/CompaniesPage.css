@@ -98,3 +98,30 @@
 .companies-error {
   color: #fca5a5;
 }
+
+
+@media (max-width: 700px) {
+  .companies-page {
+    padding: 32px;
+  }
+
+  .companies-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .companies-page__summary {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .company-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .company-card button {
+    width: 100%;
+  }
+}

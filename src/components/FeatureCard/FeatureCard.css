@@ -10,6 +10,10 @@
   transition: 0.2s;
 }
 
+.feature-card h2 {
+  color: white;
+}
+
 .feature-card:hover {
   transform: translateY(-4px);
 
@@ -24,7 +28,7 @@
 
 .feature-card__title {
   font-size: 24px;
-
+  /* color: white; */
   margin-bottom: 12px;
 }
 
