@@ -1,5 +1,4 @@
-const API_BASE_URL = 'http://localhost:7070/api/v1'
-// const API_BASE_URL = 'https://membersystem.obli.dk/api/v1'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -9,7 +8,7 @@ async function handleResponse(response) {
       const errorData = await response.json()
       errorMessage = errorData.message ?? errorMessage
     } catch {
-      // Hvis API'et ikke sender JSON-fejl
+      // fallback hvis API ikke sender JSON
     }
 
     throw new Error(errorMessage)
@@ -49,6 +48,25 @@ export async function apiPost(endpoint, data, includeAuth = true) {
     method: 'POST',
     headers: getHeaders(includeAuth),
     body: JSON.stringify(data),
+  })
+
+  return await handleResponse(response)
+}
+
+export async function apiPut(endpoint, data, includeAuth = true) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'PUT',
+    headers: getHeaders(includeAuth),
+    body: JSON.stringify(data),
+  })
+
+  return await handleResponse(response)
+}
+
+export async function apiDelete(endpoint, includeAuth = true) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'DELETE',
+    headers: getHeaders(includeAuth),
   })
 
   return await handleResponse(response)

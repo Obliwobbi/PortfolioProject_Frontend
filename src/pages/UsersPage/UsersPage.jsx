@@ -1,67 +1,83 @@
-import { useEffect, useMemo, useState } from 'react'
-import { apiGet } from '../../api/apiClient'
-import UserCard from '../../components/UserCard/UserCard'
-import './UsersPage.css'
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router";
+import { apiGet } from "../../api/apiClient";
+import UserCard from "../../components/UserCard/UserCard";
+import "./UsersPage.css";
 
 function UsersPage() {
-  const [users, setUsers] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedRole, setSelectedRole] = useState('ALL')
-  const [selectedCompany, setSelectedCompany] = useState('ALL')
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchTerm = searchParams.get("search") ?? "";
+  const selectedRole = searchParams.get("role") ?? "ALL";
+  const selectedCompany = searchParams.get("company") ?? "ALL";
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [selectedRole, setSelectedRole] = useState("ALL");
+  // const [selectedCompany, setSelectedCompany] = useState("ALL");
 
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const data = await apiGet('/users')
-        setUsers(data)
+        const data = await apiGet("/users");
+        setUsers(data);
       } catch (error) {
-        setErrorMessage(error.message)
+        setErrorMessage(error.message);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 
-    fetchUsers()
-  }, [])
+    fetchUsers();
+  }, []);
 
   const companies = useMemo(() => {
-    const uniqueCompanies = new Map()
+    const uniqueCompanies = new Map();
 
     users.forEach((user) => {
       if (user.companyId && user.companyName) {
-        uniqueCompanies.set(user.companyId, user.companyName)
+        uniqueCompanies.set(user.companyId, user.companyName);
       }
-    })
+    });
 
-    return Array.from(uniqueCompanies, ([id, name]) => ({ id, name }))
-  }, [users])
+    return Array.from(uniqueCompanies, ([id, name]) => ({ id, name }));
+  }, [users]);
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) => {
-      const searchText = `${user.firstname} ${user.lastname} ${user.email} ${user.companyName}`.toLowerCase()
+  const filteredUsers = users.filter((user) => {
+    const searchText =
+      `${user.firstname} ${user.lastname} ${user.email} ${user.companyName}`.toLowerCase();
 
-      const matchesSearch = searchText.includes(searchTerm.toLowerCase())
+    const matchesSearch = searchText.includes(searchTerm.toLowerCase());
 
-      const matchesRole =
-        selectedRole === 'ALL' || user.role === selectedRole
+    const matchesRole = selectedRole === "ALL" || user.role === selectedRole;
 
-      const matchesCompany =
-        selectedCompany === 'ALL' || String(user.companyId) === selectedCompany
+    const matchesCompany =
+      selectedCompany === "ALL" || String(user.companyId) === selectedCompany;
 
-      return matchesSearch && matchesRole && matchesCompany
-    })
-  }, [users, searchTerm, selectedRole, selectedCompany])
+    return matchesSearch && matchesRole && matchesCompany;
+  });
 
   if (isLoading) {
-    return <p className="users-status">Loading users...</p>
+    return <p className="users-status">Loading users...</p>;
   }
 
   if (errorMessage) {
-    return <p className="users-error">{errorMessage}</p>
+    return <p className="users-error">{errorMessage}</p>;
   }
+
+  function updateSearchParam(key, value) {
+  const nextParams = new URLSearchParams(searchParams);
+
+  if (!value || value === "ALL") {
+    nextParams.delete(key);
+  } else {
+    nextParams.set(key, value);
+  }
+
+  setSearchParams(nextParams);
+}
 
   return (
     <section className="users-page">
@@ -85,12 +101,12 @@ function UsersPage() {
           type="search"
           placeholder="Search by name, email or company..."
           value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
+          onChange={(event) => updateSearchParam("search", event.target.value)}
         />
 
         <select
           value={selectedRole}
-          onChange={(event) => setSelectedRole(event.target.value)}
+          onChange={(event) => updateSearchParam("role", event.target.value)}
         >
           <option value="ALL">All roles</option>
           <option value="SYSTEM_ADMIN">System admin</option>
@@ -100,7 +116,7 @@ function UsersPage() {
 
         <select
           value={selectedCompany}
-          onChange={(event) => setSelectedCompany(event.target.value)}
+          onChange={(event) => updateSearchParam("company", event.target.value)}
         >
           <option value="ALL">All companies</option>
           {companies.map((company) => (
@@ -124,7 +140,7 @@ function UsersPage() {
         </div>
       )}
     </section>
-  )
+  );
 }
 
-export default UsersPage
+export default UsersPage;
