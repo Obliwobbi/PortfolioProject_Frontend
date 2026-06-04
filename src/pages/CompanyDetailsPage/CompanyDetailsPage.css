@@ -1,0 +1,148 @@
+.company-details-page {
+  padding: 64px;
+  min-height: calc(100vh - 80px);
+  background: #080b14;
+  color: white;
+}
+
+.company-details-back {
+  margin-bottom: 24px;
+  padding: 10px 18px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+
+  background: rgba(168, 85, 247, 0.12);
+  color: #d8b4fe;
+
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.company-details-back:hover {
+  background: rgba(168, 85, 247, 0.22);
+  border-color: rgba(168, 85, 247, 0.65);
+  color: white;
+  transform: translateX(-2px);
+}
+
+.company-details-card {
+  max-width: 900px;
+  padding: 36px;
+  border-radius: 22px;
+  background: #111827;
+  border: 1px solid #27272a;
+}
+
+.company-details-card__top {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.company-details-avatar {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.company-details-eyebrow {
+  margin: 0 0 8px;
+  color: #a855f7;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.company-details-card h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+}
+
+.company-details-card p {
+  margin: 0;
+  color: #a1a1aa;
+}
+
+.company-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 20px;
+}
+
+.company-details-field {
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  background: #0b0f19;
+  padding: 18px 20px;
+}
+
+.company-details-field legend {
+  padding: 0 4px;
+  margin-left: 8px;
+  color: #c084fc;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.company-details-field strong {
+  display: block;
+  color: white;
+  font-size: 16px;
+}
+
+.company-details-actions {
+  margin-top: 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.company-details-actions button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.company-details-status,
+.company-details-error {
+  padding: 64px;
+  color: white;
+}
+
+.company-details-error {
+  color: #fca5a5;
+}
+
+@media (max-width: 700px) {
+  .company-details-page {
+    padding: 32px;
+  }
+
+  .company-details-card__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-details-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -116,6 +116,14 @@ function UserDetailsPage() {
             <strong>{user.id}</strong>
           </fieldset>
         </div>
+        <div className="user-details-actions">
+          <button
+            type="button"
+            onClick={() => navigate(`/users/${user.id}/edit`)}
+          >
+            Edit user
+          </button>
+        </div>
       </article>
     </section>
   );

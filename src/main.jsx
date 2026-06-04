@@ -13,7 +13,12 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import UsersPage from "./pages/UsersPage/UsersPage.jsx";
 import UserDetailsPage from "./pages/UserDetailsPage/UserDetailsPage.jsx";
+import UserEditPage from "./pages/UserEditPage/UserEditPage.jsx";
+
 import CompaniesPage from "./pages/CompaniesPage/CompaniesPage.jsx";
+import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage.jsx";
+import CompanyEditPage from "./pages/CompanyEditPage/CompanyEditPage.jsx";
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -33,16 +38,47 @@ createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
-          <Route path="companies" element={
-            <ProtectedRoute>
-              <CompaniesPage />
-            </ProtectedRoute>
-          } />
-          <Route path="users/:id" element={
-            <ProtectedRoute>
-              <UserDetailsPage />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="users/:id"
+            element={
+              <ProtectedRoute>
+                <UserDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="users/:id/edit"
+            element={
+              <ProtectedRoute>
+                <UserEditPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="companies"
+            element={
+              <ProtectedRoute>
+                <CompaniesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="companies/:id"
+            element={
+              <ProtectedRoute>
+                <CompanyDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="companies/:id/edit"
+            element={
+              <ProtectedRoute>
+                <CompanyEditPage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
