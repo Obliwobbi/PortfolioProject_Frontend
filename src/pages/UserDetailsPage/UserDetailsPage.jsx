@@ -15,6 +15,7 @@ function formatDob(dob) {
 function UserDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -56,8 +57,7 @@ function UserDetailsPage() {
   const canGoBackToUsers =
     currentUser?.role === "SYSTEM_ADMIN" ||
     currentUser?.role === "COMPANY_ADMIN";
-
-  const location = useLocation();
+  
   const backTo = location.state?.from || "/users";
 
   return (
