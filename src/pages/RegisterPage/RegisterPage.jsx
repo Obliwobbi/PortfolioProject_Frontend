@@ -23,7 +23,7 @@ function RegisterPage() {
   useEffect(() => {
     async function fetchCompanies() {
       try {
-        const data = await apiGet("/companies", false);
+        const data = await apiGet("/companies/public", false);
         setCompanies(data);
       } catch (error) {
         setErrorMessage(error.message);
