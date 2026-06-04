@@ -5,7 +5,8 @@ import "./index.css";
 import App from "./App.jsx";
 
 import FrontPage from "./pages/Frontpage/FrontPage.jsx";
-import Features from "./pages/Features/Features.jsx";
+import FeaturesPage from "./pages/FeaturesPage/FeaturesPage.jsx";
+import HowItWorksPage from "./pages/HowItWorksPage/HowItWorksPage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 
@@ -20,7 +21,8 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<FrontPage />} />
-          <Route path="features" element={<Features />} />
+          <Route path="features" element={<FeaturesPage />} />
+          <Route path="how-it-works" element={<HowItWorksPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route

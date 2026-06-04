@@ -53,7 +53,7 @@ function LoginPage() {
           Email
           <input
             type="email"
-            placeholder="admin@obli.dk"
+            placeholder="john@doe.dk"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />

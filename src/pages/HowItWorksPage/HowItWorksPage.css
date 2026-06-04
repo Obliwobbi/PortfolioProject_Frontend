@@ -1,0 +1,148 @@
+.how-page {
+  min-height: calc(100vh - 80px);
+  padding: 80px 64px;
+  background:
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.2), transparent 34%),
+    #080b14;
+  color: white;
+}
+
+.how-page__hero {
+  max-width: 820px;
+  margin-bottom: 56px;
+}
+
+.how-page__eyebrow {
+  margin: 0 0 12px;
+  color: #a855f7;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.how-page__hero h1 {
+  margin: 0 0 18px;
+  font-size: 52px;
+  line-height: 1.05;
+}
+
+.how-page__hero p {
+  margin: 0;
+  max-width: 720px;
+  color: #a1a1aa;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.how-page__content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+.how-page__timeline {
+  display: grid;
+  gap: 22px;
+}
+
+.how-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+
+  padding: 28px;
+  border-radius: 22px;
+  background: #111827;
+  border: 1px solid #27272a;
+}
+
+.how-step__number {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(168, 85, 247, 0.16);
+  color: #d8b4fe;
+
+  font-weight: 900;
+}
+
+.how-step h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.how-step p {
+  margin: 0;
+  color: #a1a1aa;
+  line-height: 1.6;
+}
+
+.how-page__panel {
+  padding: 30px;
+  border-radius: 22px;
+  background: #111827;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  position: sticky;
+  top: 104px;
+}
+
+.how-page__panel h2 {
+  margin: 0 0 22px;
+}
+
+.flow-box {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.flow-box span {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #0b0f19;
+  border: 1px solid #27272a;
+  color: #f5f3ff;
+  font-weight: 700;
+}
+
+.flow-box strong {
+  color: #a855f7;
+  text-align: center;
+  font-size: 20px;
+}
+
+.how-page__panel p {
+  margin: 0;
+  color: #a1a1aa;
+  line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .how-page__content {
+    grid-template-columns: 1fr;
+  }
+
+  .how-page__panel {
+    position: static;
+  }
+}
+
+@media (max-width: 650px) {
+  .how-page {
+    padding: 48px 24px;
+  }
+
+  .how-page__hero h1 {
+    font-size: 38px;
+  }
+
+  .how-step {
+    grid-template-columns: 1fr;
+  }
+}
