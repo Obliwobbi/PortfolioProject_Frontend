@@ -1,72 +1,72 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { apiGet, apiPut } from '../../api/apiClient'
-import './UserEditPage.css'
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { apiGet, apiPut } from "../../api/apiClient";
+import "./UserEditPage.css";
 
 function toDateInputValue(dob) {
-  if (!dob) return ''
+  if (!dob) return "";
 
   if (Array.isArray(dob)) {
-    const [year, month, day] = dob
-    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+    const [year, month, day] = dob;
+    return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
   }
 
-  return dob
+  return dob;
 }
 
 function UserEditPage() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null);
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    dob: '',
-    role: 'MEMBER',
-  })
+    firstname: "",
+    lastname: "",
+    dob: "",
+    role: "MEMBER",
+  });
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [isSaving, setIsSaving] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const loggedInUser = await apiGet('/me')
-        const userData = await apiGet(`/users/${id}`)
+        const loggedInUser = await apiGet("/me");
+        const userData = await apiGet(`/users/${id}`);
 
-        setCurrentUser(loggedInUser)
+        setCurrentUser(loggedInUser);
 
         setFormData({
-          firstname: userData.firstname ?? '',
-          lastname: userData.lastname ?? '',
+          firstname: userData.firstname ?? "",
+          lastname: userData.lastname ?? "",
           dob: toDateInputValue(userData.dob),
-          role: userData.role ?? 'MEMBER',
-        })
+          role: userData.role ?? "MEMBER",
+        });
       } catch (error) {
-        setErrorMessage(error.message)
+        setErrorMessage(error.message);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 
-    fetchData()
-  }, [id])
+    fetchData();
+  }, [id]);
 
   function handleChange(event) {
-    const { name, value } = event.target
+    const { name, value } = event.target;
 
     setFormData((current) => ({
       ...current,
       [name]: value,
-    }))
+    }));
   }
 
   async function handleSubmit(event) {
-    event.preventDefault()
-    setErrorMessage('')
-    setIsSaving(true)
+    event.preventDefault();
+    setErrorMessage("");
+    setIsSaving(true);
 
     try {
       await apiPut(`/users/${id}`, {
@@ -74,21 +74,33 @@ function UserEditPage() {
         lastname: formData.lastname,
         dob: formData.dob,
         role: formData.role,
-      })
+      });
 
-      navigate(`/users/${id}`)
+      navigate(`/users/${id}`);
     } catch (error) {
-      setErrorMessage(error.message)
+      setErrorMessage(error.message);
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
   }
 
-  if (isLoading) return <p className="user-edit-status">Loading user...</p>
+  if (isLoading) return <p className="user-edit-status">Loading user...</p>;
 
   const canEditRole =
-    currentUser?.role === 'SYSTEM_ADMIN' ||
-    currentUser?.role === 'COMPANY_ADMIN'
+    currentUser?.role === "SYSTEM_ADMIN" ||
+    currentUser?.role === "COMPANY_ADMIN";
+
+  const roleOptions =
+    currentUser?.role === "SYSTEM_ADMIN"
+      ? [
+          { value: "MEMBER", label: "Member" },
+          { value: "COMPANY_ADMIN", label: "Company Admin" },
+          { value: "SYSTEM_ADMIN", label: "System Admin" },
+        ]
+      : [
+          { value: "MEMBER", label: "Member" },
+          { value: "COMPANY_ADMIN", label: "Company Admin" },
+        ];
 
   return (
     <section className="user-edit-page">
@@ -99,9 +111,7 @@ function UserEditPage() {
           <p>Update profile information.</p>
         </div>
 
-        {errorMessage && (
-          <div className="user-edit-error">{errorMessage}</div>
-        )}
+        {errorMessage && <div className="user-edit-error">{errorMessage}</div>}
 
         <div className="user-edit-row">
           <label>
@@ -147,9 +157,11 @@ function UserEditPage() {
               onChange={handleChange}
               required
             >
-              <option value="MEMBER">Member</option>
-              <option value="COMPANY_ADMIN">Company Admin</option>
-              <option value="SYSTEM_ADMIN">System Admin</option>
+              {roleOptions.map((role) => (
+                <option key={role.value} value={role.value}>
+                  {role.label}
+                </option>
+              ))}
             </select>
           </label>
         )}
@@ -164,12 +176,12 @@ function UserEditPage() {
           </button>
 
           <button type="submit" disabled={isSaving}>
-            {isSaving ? 'Saving...' : 'Save changes'}
+            {isSaving ? "Saving..." : "Save changes"}
           </button>
         </div>
       </form>
     </section>
-  )
+  );
 }
 
-export default UserEditPage
+export default UserEditPage;
