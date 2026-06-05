@@ -2,6 +2,8 @@
 
 React frontend for the MemberSystem project.
 
+Link to running site: [text](https://membersystem.obli.dk/)
+
 This application provides the user interface for logging in, viewing users and companies, editing data, and showing role-based navigation based on the logged-in user.
 
 The backend API is maintained in a separate repository.
