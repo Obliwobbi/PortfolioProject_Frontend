@@ -1,48 +1,52 @@
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { apiGet, apiPut } from '../../../api/apiClient'
-import './CompanyEditPage.css'
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { apiGet, apiPut } from "../../../api/apiClient";
+import "./CompanyEditPage.css";
 
 function CompanyEditPage() {
-  const { id } = useParams()
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const [name, setName] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [isSaving, setIsSaving] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [name, setName] = useState("");
+  const [publicRegistrationEnabled, setPublicRegistrationEnabled] =
+    useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function fetchCompany() {
       try {
-        const data = await apiGet(`/companies/${id}`)
-        setName(data.name)
+        const data = await apiGet(`/companies/${id}`);
+        setName(data.name);
+        setPublicRegistrationEnabled(data.publicRegistrationEnabled);
       } catch (error) {
-        setErrorMessage(error.message)
+        setErrorMessage(error.message);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 
-    fetchCompany()
-  }, [id])
+    fetchCompany();
+  }, [id]);
 
   async function handleSubmit(event) {
-    event.preventDefault()
-    setErrorMessage('')
-    setIsSaving(true)
+    event.preventDefault();
+    setErrorMessage("");
+    setIsSaving(true);
 
     try {
-      await apiPut(`/companies/${id}`, { name })
-      navigate(`/companies/${id}`)
+      await apiPut(`/companies/${id}`, { name, publicRegistrationEnabled });
+      navigate(`/companies/${id}`);
     } catch (error) {
-      setErrorMessage(error.message)
+      setErrorMessage(error.message);
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
   }
 
-  if (isLoading) return <p className="company-edit-status">Loading company...</p>
+  if (isLoading)
+    return <p className="company-edit-status">Loading company...</p>;
 
   return (
     <section className="company-edit-page">
@@ -50,7 +54,7 @@ function CompanyEditPage() {
         <div className="company-edit-card__header">
           <p className="company-edit-eyebrow">Edit company</p>
           <h1>Company details</h1>
-          <p>Update the company name.</p>
+          <p>Update the company name and registration status.</p>
         </div>
 
         {errorMessage && (
@@ -67,6 +71,23 @@ function CompanyEditPage() {
           />
         </label>
 
+        <label className="company-edit-checkbox">
+          <input
+            type="checkbox"
+            checked={publicRegistrationEnabled}
+            onChange={(event) =>
+              setPublicRegistrationEnabled(event.target.checked)
+            }
+          />
+
+          <div>
+            <strong>Allow public registration</strong>
+            <span>
+              When enabled, this company can be selected on the register page.
+            </span>
+          </div>
+        </label>
+
         <div className="company-edit-actions">
           <button
             type="button"
@@ -77,12 +98,12 @@ function CompanyEditPage() {
           </button>
 
           <button type="submit" disabled={isSaving}>
-            {isSaving ? 'Saving...' : 'Save changes'}
+            {isSaving ? "Saving..." : "Save changes"}
           </button>
         </div>
       </form>
     </section>
-  )
+  );
 }
 
-export default CompanyEditPage
+export default CompanyEditPage;

@@ -96,6 +96,12 @@ function CompanyDetailsPage() {
             <legend>Company ID</legend>
             <strong>{company.id}</strong>
           </fieldset>
+          <fieldset className="company-details-field">
+            <legend>Public Registration</legend>
+            <strong>
+              {company.publicRegistrationEnabled ? "Enabled" : "Disabled"}
+            </strong>
+          </fieldset>
         </div>
 
         {canEditCompany && (
