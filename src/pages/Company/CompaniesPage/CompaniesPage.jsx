@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { apiGet } from "../../api/apiClient";
+import { apiGet } from "../../../api/apiClient";
 import "./CompaniesPage.css";
 
 function CompaniesPage() {

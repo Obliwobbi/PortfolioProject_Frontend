@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { apiGet, apiPut } from '../../api/apiClient'
+import { apiGet, apiPut } from '../../../api/apiClient'
 import './CompanyEditPage.css'
 
 function CompanyEditPage() {

@@ -104,6 +104,18 @@
   margin-top: 28px;
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
+}
+
+.user-details-danger {
+  background: rgba(239, 68, 68, 0.14) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+.user-details-danger:hover {
+  background: rgba(239, 68, 68, 0.24) !important;
+  border-color: rgba(239, 68, 68, 0.65) !important;
 }
 
 .user-details-actions button {

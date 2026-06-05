@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
-import { apiGet } from "../../api/apiClient";
-import UserCard from "../../components/UserCard/UserCard";
+import { apiGet } from "../../../api/apiClient";
+import UserCard from "../../../components/UserCard/UserCard";
 import "./UsersPage.css";
 
 function UsersPage() {

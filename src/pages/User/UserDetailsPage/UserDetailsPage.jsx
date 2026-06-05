@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { apiGet } from "../../api/apiClient";
-import RoleBadge from "../../components/RoleBadge/RoleBadge";
+import { apiGet, apiDelete } from "../../../api/apiClient";
+import RoleBadge from "../../../components/RoleBadge/RoleBadge";
 import "./UserDetailsPage.css";
 
 function formatDob(dob) {
@@ -40,6 +40,23 @@ function UserDetailsPage() {
     fetchData();
   }, [id]);
 
+  async function handleDeleteUser() {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${user.firstname} ${user.lastname}?`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await apiDelete(`/users/${user.id}`);
+      navigate("/users");
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  }
+
   if (isLoading) {
     return <p className="user-details-status">Loading user...</p>;
   }
@@ -57,8 +74,12 @@ function UserDetailsPage() {
   const canGoBackToUsers =
     currentUser?.role === "SYSTEM_ADMIN" ||
     currentUser?.role === "COMPANY_ADMIN";
-  
+
   const backTo = location.state?.from || "/users";
+
+  const canDeleteUser =
+    currentUser?.role === "SYSTEM_ADMIN" ||
+    currentUser?.role === "COMPANY_ADMIN";
 
   return (
     <section className="user-details-page">
@@ -123,6 +144,16 @@ function UserDetailsPage() {
           >
             Edit user
           </button>
+
+          {canDeleteUser && (
+            <button
+              type="button"
+              className="user-details-danger"
+              onClick={handleDeleteUser}
+            >
+              Delete user
+            </button>
+          )}
         </div>
       </article>
     </section>

@@ -11,13 +11,15 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import UsersPage from "./pages/UsersPage/UsersPage.jsx";
-import UserDetailsPage from "./pages/UserDetailsPage/UserDetailsPage.jsx";
-import UserEditPage from "./pages/UserEditPage/UserEditPage.jsx";
 
-import CompaniesPage from "./pages/CompaniesPage/CompaniesPage.jsx";
-import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage.jsx";
-import CompanyEditPage from "./pages/CompanyEditPage/CompanyEditPage.jsx";
+
+import UsersPage from "./pages/User/UsersPage/UsersPage.jsx";
+import UserDetailsPage from "./pages/User/UserDetailsPage/UserDetailsPage.jsx";
+import UserEditPage from "./pages/User/UserEditPage/UserEditPage.jsx";
+
+import CompaniesPage from "./pages/Company/CompaniesPage/CompaniesPage.jsx";
+import CompanyDetailsPage from "./pages/Company/CompanyDetailsPage/CompanyDetailsPage.jsx";
+import CompanyEditPage from "./pages/Company/CompanyEditPage/CompanyEditPage.jsx";
 
 
 createRoot(document.getElementById("root")).render(
