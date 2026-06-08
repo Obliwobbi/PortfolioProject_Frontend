@@ -76,7 +76,7 @@ function Header() {
     }
 
     fetchCurrentUser()
-    setIsMenuOpen(false)
+    // setIsMenuOpen(false)
   }, [location.pathname])
 
   return (
